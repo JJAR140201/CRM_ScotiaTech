@@ -5,8 +5,9 @@ import crm.scotiatech.Dao.UserDao;
 import crm.scotiatech.POJO.User;
 import crm.scotiatech.Service.UserService;
 import crm.scotiatech.Utils.SingUpUtils;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ import java.util.Objects;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     UserDao userDao;
 
@@ -42,7 +45,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResponseEntity<String> singUp(Map<String, String> reqMap) {
-        //log.info("Inside singup {}", reqMap);
+        logger.info("Inside singup {}", reqMap);
         try {
             if (validateSingUpMap(reqMap)) {
                 User user = userDao.findByEmailId(reqMap.get("email"));
