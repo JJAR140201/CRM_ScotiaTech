@@ -10,9 +10,12 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * La clase User representa la entidad de usuario en el sistema. Contiene información sobre los usuarios, como su nombre,
- * número de contacto, dirección de correo electrónico, contraseña, estado y rol. Esta clase está mapeada a una tabla "User"
- * en la base de datos y se utiliza para realizar operaciones de acceso a datos y persistencia.
+ * La clase User representa la entidad de usuario en el sistema.
+ * Contiene información sobre los usuarios, como su nombre,
+ * número de contacto, dirección de correo electrónico, contraseña,
+ * estado y rol. Esta clase está mapeada a una tabla "User"
+ * en la base de datos y se utiliza para realizar operaciones de acceso a
+ * datos y persistencia.
  */
 
 @NamedQuery(name = "User.findByEmailId", query = "select u from User u where u.email =: email ")
