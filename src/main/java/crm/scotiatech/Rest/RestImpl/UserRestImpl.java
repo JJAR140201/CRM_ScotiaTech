@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+/**
+ * La clase UserRestImpl implementa la interfaz UserRest y se encarga de proporcionar endpoints REST relacionados con la funcionalidad de registro (signup) de usuarios.
+ * Utiliza la inyección de dependencias para acceder a un objeto UserService que maneja la lógica de registro de usuarios.
+ */
+
 @RestController
 public class UserRestImpl implements UserRest {
 
     @Autowired
     UserService userService;
 
+    /**
+     * Maneja el proceso de registro (signup) de usuarios a través de una solicitud REST.
+     *
+     * @param req Un mapa que contiene datos de solicitud, como nombre, dirección de correo electrónico, contraseña, etc.
+     * @return Un objeto ResponseEntity que contiene una respuesta HTTP que indica el resultado del proceso de registro.
+     */
     @Override
     public ResponseEntity<String> singUp(Map<String, String> req) {
         try {
@@ -24,6 +35,7 @@ public class UserRestImpl implements UserRest {
         } catch (Exception ex){
             ex.printStackTrace();
         }
+        // En caso de una excepción, se devuelve una respuesta de error con un mensaje genérico.
         return SingUpUtils.getResponseEntity(SingUp.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

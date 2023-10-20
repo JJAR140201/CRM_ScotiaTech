@@ -15,6 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * La clase UserServiceImpl es una implementación de la interfaz UserService y proporciona servicios relacionados con el registro de usuarios.
+ * Se encarga de validar los datos de registro, verificar la existencia del correo electrónico en la base de datos y, si es válido, registrar al usuario.
+ * Utiliza la inyección de dependencias para acceder a un objeto UserDao que se encarga de las operaciones de acceso a datos.
+ */
+
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +28,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
+    /**
+     * Maneja el proceso de registro (signup) de usuarios y proporciona una respuesta HTTP basada en el resultado del proceso.
+     *
+     * @param reqMap Un mapa que contiene datos de solicitud, como nombre, dirección de correo electrónico, contraseña, etc.
+     * @return Un objeto ResponseEntity que contiene una respuesta HTTP que indica el resultado del proceso de registro.
+     */
     @Override
     public ResponseEntity<String> singUp(Map<String, String> reqMap) {
         //log.info("Inside singup {}", reqMap);
