@@ -21,7 +21,7 @@ public class SingUpUtils {
      * Crea un objeto ResponseEntity que contiene un mensaje de respuesta y un código
      * de estado HTTP personalizables.
      *
-     * @param responseMessage El mensaje de respuesta que se incluirá en el cuerpo
+     * @param responseMenssage El mensaje de respuesta que se incluirá en el cuerpo
      *                       de la respuesta HTTP.
      * @param httpStatus El código de estado HTTP que se incluirá
      *                  en la respuesta.
