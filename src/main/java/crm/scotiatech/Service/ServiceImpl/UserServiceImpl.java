@@ -2,6 +2,8 @@ package crm.scotiatech.Service.ServiceImpl;
 
 import crm.scotiatech.Constents.SingUp;
 import crm.scotiatech.Dao.UserDao;
+import crm.scotiatech.JWT.CustomerUsersDetailsService;
+import crm.scotiatech.JWT.JwtUtils;
 import crm.scotiatech.POJO.User;
 import crm.scotiatech.Service.UserService;
 import crm.scotiatech.Utils.SingUpUtils;
@@ -11,7 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +38,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    CustomerUsersDetailsService customerUsersDetailsService;
+
+    @Autowired
+    JwtUtils jwtUtils;
 
     /**
      * Maneja el proceso de registro (signup) de usuarios y proporciona
@@ -84,5 +98,32 @@ public class UserServiceImpl implements UserService {
         user.setRole(reqMap.get("role"));
 
         return user;
+    }
+
+    @Override
+    public ResponseEntity<String> login(Map<String, String> reqMap) {
+        logger.info("Inside login {}", reqMap);
+        try{
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(reqMap.get("email"),
+                            reqMap.get("password"))
+            );
+            if (auth.isAuthenticated()){
+                if(customerUsersDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
+                    return new ResponseEntity<String>("{\"token\":\"" +
+                            jwtUtils.generateToken(customerUsersDetailsService.getUserDetails().getEmail(),
+                                    customerUsersDetailsService.getUserDetails().getRole()) + "\"}",
+                    HttpStatus.OK);
+                }
+                else {
+                    return new ResponseEntity<String>("{\"message\":\"" + "Wait for admin approval." + "\"}",
+                            HttpStatus.BAD_REQUEST);
+                }
+            }
+        } catch (Exception ex){
+            logger.error("{}", ex);
+        }
+        return new ResponseEntity<String>("{\"message\":\"" + "Bad Credentials." + "\"}",
+                HttpStatus.BAD_REQUEST);
     }
 }

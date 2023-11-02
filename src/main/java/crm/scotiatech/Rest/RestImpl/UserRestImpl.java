@@ -42,4 +42,14 @@ public class UserRestImpl implements UserRest {
         // En caso de una excepción, se devuelve una respuesta de error con un mensaje genérico.
         return SingUpUtils.getResponseEntity(SingUp.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> login(Map<String, String> req) {
+        try{
+            return userService.login(req);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return SingUpUtils.getResponseEntity(SingUp.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

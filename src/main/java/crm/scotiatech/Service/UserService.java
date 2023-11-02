@@ -23,4 +23,6 @@ public interface UserService {
      * el resultado del proceso de registro.
      */
     ResponseEntity<String> singUp(Map<String, String> reqMap);
+
+    ResponseEntity<String> login(Map<String, String> reqMap);
 }

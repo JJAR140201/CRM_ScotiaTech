@@ -28,4 +28,7 @@ public interface UserRest {
      */
     @PostMapping(path = "/singUp")
     public ResponseEntity<String> singUp(@RequestBody(required = true)Map<String, String> req);
+
+    @PostMapping(path = "/login")
+    public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> req);
 }
