@@ -1,7 +1,9 @@
 package crm.scotiatech.Service;
 
+import crm.scotiatech.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +27,6 @@ public interface UserService {
     ResponseEntity<String> singUp(Map<String, String> reqMap);
 
     ResponseEntity<String> login(Map<String, String> reqMap);
+
+    ResponseEntity<List<UserWrapper>> getAllUser();
 }

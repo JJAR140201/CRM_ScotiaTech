@@ -19,6 +19,8 @@ import java.io.Serializable;
  */
 
 @NamedQuery(name = "User.findByEmailId", query = "select u from User u where u.email =: email ")
+@NamedQuery(name = "User.getAllUser", query = "select new crm.scotiatech.wrapper.UserWrapper() from User u where" +
+        " u.role='user")
 
 @Data
 @Entity
@@ -69,8 +71,6 @@ public class User  implements Serializable {
 
     /**
      * Establece el ID del usuario.
-     *
-     * @param id El nuevo ID del usuario.
      */
     public String getName() {
         return name;

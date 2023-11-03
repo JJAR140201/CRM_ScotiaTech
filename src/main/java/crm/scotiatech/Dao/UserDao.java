@@ -1,8 +1,11 @@
 package crm.scotiatech.Dao;
 
 import crm.scotiatech.POJO.User;
+import crm.scotiatech.wrapper.UserWrapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 
 /**
@@ -21,5 +24,7 @@ public interface UserDao extends JpaRepository<User, Long> {
      * proporcionada, o null si no se encuentra ninguna coincidencia.
      */
     User findByEmailId(@Param("email") String email);
+
+    List<UserWrapper> getAllUser();
 
 }
