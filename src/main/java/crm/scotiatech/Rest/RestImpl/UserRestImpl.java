@@ -65,4 +65,14 @@ public class UserRestImpl implements UserRest {
         }
         return new ResponseEntity<List<UserWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> update(Map<String, String> reqMap) {
+        try {
+            return userService.update(reqMap);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return SingUpUtils.getResponseEntity(SingUp.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

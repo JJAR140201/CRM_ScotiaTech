@@ -1,9 +1,12 @@
 package crm.scotiatech.Rest;
 
+import crm.scotiatech.Dao.UserDao;
 import crm.scotiatech.wrapper.UserWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -20,17 +23,20 @@ public interface UserRest {
     /**
      * Maneja una solicitud HTTP POST para el registro (signup) de usuarios.
      *
-     * @param req Un mapa que contiene datos de solicitud, como nombre, dirección
+     * @param reqMap Un mapa que contiene datos de solicitud, como nombre, dirección
      *           de correo electrónico, contraseña, etc.
      * @return Un objeto ResponseEntity que contiene una respuesta HTTP que indica
      * el resultado del proceso de registro.
      */
     @PostMapping(path = "/singUp")
-    public ResponseEntity<String> singUp(@RequestBody(required = true)Map<String, String> req);
+    public ResponseEntity<String> singUp(@RequestBody(required = true)Map<String, String> reqMap);
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> req);
+    public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> reqMap);
 
     @GetMapping(path = "/get")
     public ResponseEntity<List<UserWrapper>> getAllUser();
+
+    @PostMapping(path = "/update")
+    public ResponseEntity<String> update(@RequestBody(required = true)Map<String, String> reqMap);
 }

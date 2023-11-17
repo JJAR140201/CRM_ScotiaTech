@@ -3,6 +3,7 @@ package crm.scotiatech.Service.ServiceImpl;
 import crm.scotiatech.Constents.SingUp;
 import crm.scotiatech.Dao.UserDao;
 import crm.scotiatech.JWT.CustomerUsersDetailsService;
+import crm.scotiatech.JWT.JwtFilter;
 import crm.scotiatech.JWT.JwtUtils;
 import crm.scotiatech.POJO.User;
 import crm.scotiatech.Service.UserService;
@@ -50,6 +51,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    JwtFilter jwtFilter;
 
     /**
      * Maneja el proceso de registro (signup) de usuarios y proporciona
@@ -133,10 +137,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUser() {
         try {
-
+            if(jwtFilter.isAdmin()){
+                return new ResponseEntity<>(userDao.getAllUser(), HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> update(Map<String, String> reqMap) {
+        try {
+            if (jwtFilter.isUser()){
+
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return SingUpUtils.getResponseEntity(SingUp.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

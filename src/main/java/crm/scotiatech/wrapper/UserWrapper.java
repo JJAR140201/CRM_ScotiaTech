@@ -5,10 +5,9 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class UserWrapper {
+public class  UserWrapper {
 
-    private Integer Id;
+    private Long id;
 
     private String name;
 
@@ -18,8 +17,9 @@ public class UserWrapper {
 
     private String status;
 
-    public UserWrapper(Integer id, String name, String email, String contactNumber, String status) {
-        Id = id;
+
+    public UserWrapper(Long id, String name, String email, String contactNumber, String status) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.contactNumber = contactNumber;

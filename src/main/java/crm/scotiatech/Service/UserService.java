@@ -29,4 +29,5 @@ public interface UserService {
     ResponseEntity<String> login(Map<String, String> reqMap);
 
     ResponseEntity<List<UserWrapper>> getAllUser();
+    ResponseEntity<String> update(Map<String, String> reqMap);
 }
